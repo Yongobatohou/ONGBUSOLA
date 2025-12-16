@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4">
+            <h1 class="display-3 animated slideInDown">Centre de ressources</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'about' %}">A propos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Centre de ressources</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Video Start -->
+    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-lg-11">
+                    <div class="h-100 py-5 d-flex align-items-center">
+                        <h3 class="ms-5 mb-0">Vous trouverez ici toute la documentation sur les projets de Busola ONG.
+                        </h3>
+                    </div>
+                </div>
+                <div class="d-none d-lg-block col-lg-1">
+                    <div class="h-100 w-100 bg-secondary d-flex align-items-center justify-content-center">
+                        <span class="text-white" style="transform: rotate(-90deg);">Téléchargez</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Video End -->
+
+
+
+
+    <!-- Service Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                    <div class="row g-5">
+                        {% for ressource in ressources %}
+                        <div class="col-sm-6 col-md-4 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="service-item h-100">
+                                <div class="btn-square bg-light mb-4">
+                                    <i class="fa fa-file fa-2x text-secondary"></i>
+                                </div>
+                                <h3>{{ressource.intitule}}</h3>
+                                <p class="mb-2">{{ressource.description}}</p>
+                                <a href="{{ressource.url}}" download><i class="fa fa-download fa-2x text-secondary"></i>Télécharger</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+
+
+    <!-- Newsletter Start -->
+    <div class="container-fluid bg-primary py-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="display-6 mb-4">Inscrivez-vous à la Newsletter</h1>
+                    <div class="position-relative w-100 mb-2">
+                        <input class="form-control border-0 w-100 ps-4 pe-5" type="text"
+                            placeholder="Entrez votre Email" style="height: 60px;">
+                        <button type="button"
+                            class="btn btn-lg-square shadow-none position-absolute top-0 end-0 mt-2 me-2"><i
+                                class="fa fa-paper-plane text-primary fs-4"></i></button>
+                    </div>
+                    <p class="mb-0">N'ayez crainte vous ne reçevrez aucun Spam dans votre boîte mail.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Newsletter End -->
+
+
+{% endblock %}

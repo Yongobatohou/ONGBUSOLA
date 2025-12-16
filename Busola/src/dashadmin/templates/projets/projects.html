@@ -1,0 +1,196 @@
+
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+
+
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../dashboard/index.html">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Projets</a></li>
+                <li class="breadcrumb-item" aria-current="page">Listes des projets menés</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0">Liste des projets menés</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          <div class="card table-card">
+            <div class="card-body">
+              <div class="text-end p-4 pb-sm-2">
+                <a href="#" class="btn btn-primary d-inline-flex align-item-center" data-bs-toggle="modal" data-bs-target="#customer-edit_add-modal" onclick="openCreateModal()">
+                  <i class="ti ti-plus f-18"></i> Ajouter un projet
+                </a>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover" id="pc-dt-simple">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nom du projet</th>
+                      <th>Secteur</th>
+                      <th>Description</th>
+                      <th>Montant du financement</th>
+                      <th>Statut</th>
+                      <th class="text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    {% for projet in projets %}
+                    <tr>
+                      <td>{{projet.id}}</td>
+                      <td>
+                        <h6 class="mb-0">{{projet.nom}}</h6>
+                      </td>
+                      <td>{{projet.secteur}}</td>
+                      <td class="text-wrap text-break w-50">{{projet.description}}</td>
+                      <td>{{projet.montant_financement}} </td>
+                      <td><span class="badge bg-light-success rounded-pill f-12">{{projet.statut}}</span> </td>
+                      <td class="text-center">
+                        <ul class="list-inline me-auto mb-0">
+                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="View">
+                            <a href="#" class="avtar avtar-xs btn-link-secondary btn-pc-default" data-bs-toggle="modal"
+                              data-bs-target="#customer-modal">
+                              <i class="ti ti-eye f-18"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Edit">
+                            <a href="{% url 'projets-edit' projet.id %}" class="avtar avtar-xs btn-link-success btn-pc-default">
+                              <i class="ti ti-edit-circle f-18"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">
+                            <a href="{% url 'projets-delete' projet.id %}" class="avtar avtar-xs btn-link-danger btn-pc-default">
+                              <i class="ti ti-trash f-18"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <div class="modal fade" id="customer-edit_add-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <form action="" method="post" enctype="multipart/form-data" id="projectForm" style="overflow-x: scroll;">
+          <div class="modal-header">
+            <h5 class="mb-0" id="modalTitle">Formulaire d'ajout de projet</h5>
+            <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+              <i class="ti ti-x f-20"></i>
+            </a>
+          </div>
+          <div class="modal-body">
+  
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="form-label">Nom du projet</label>
+                    <input type="text" name="nom" class="form-control" placeholder="Nom du projet">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label">Secteur</label>
+                    <input type="text" name="secteur" class="form-control" placeholder="Secteur d'activité">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Description</label>
+                  <textarea name="description" class="form-control" rows="3" placeholder="Description du projet."></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Détails</label>
+                  <textarea name="details" class="form-control" rows="3" placeholder="Détails sur le projet (objectifs, résultats attendus, vision, ressources, etc...)"></textarea>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="form-label">Partenaires</label>
+                    <input type="text" name="secteur" class="form-control" placeholder="Partenaires">
+                  </div>                
+                  <div class="form-group col-md-3">
+                    <label class="form-label">Taux de réalisation</label>
+                    <input type="number" name="taux" class="form-control" placeholder="Taux en pourcentage">
+                  </div>
+                  <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 col-md-3">
+                    <label class="form-check-label h5 pe-3 mb-0" for="customSwitchemlnot1">Publier</label>
+                    <input class="form-check-input h4 m-0 position-relative flex-shrink-0" type="checkbox" name="publier"
+                      id="switchPublier">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Image</label>
+                  <input type="file" name="image" class="form-control" placeholder="Image">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Télécharger le TDR</label>
+                  <input type="file" name="tdr" class="form-control" placeholder="TDR">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Montant du financement (en FCFA)</label>
+                  <input type="number" name="montant_financement" class="form-control" placeholder="Montant du financement">
+                </div>
+  
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <div class="flex-grow-1 text-end">
+              <button type="button" class="btn btn-link-danger btn-pc-default" data-bs-dismiss="modal">Annuler</button>
+              <button type="submit" id="submitBtn" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+
+  <!-- [Page Specific JS] start -->
+  <script src="{% static 'js/plugins/simple-datatables.js' %}"></script>
+  <script>
+    const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+      sortable: false,
+      perPage: 5
+    });
+  </script>
+  <script>
+    function openCreateModal() {
+      document.getElementById("modalTitle").innerText = "Enregistrer un nouveau projet";
+      document.getElementById("submitBtn").innerText = "Créer";
+
+      document.getElementById("projectForm").action = "{% url 'projets-add' %}";
+      document.getElementById("projectForm").reset();
+    }
+  </script>
+ 
+  {% endblock %}

@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4">
+            <h1 class="display-3 animated slideInDown">A propos de nous</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'about' %}">A propos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">A propos de nous</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row g-5 align-items-justify">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.2s">
+                    <div class="about-img">
+                        <img class="img-fluid w-100 mt-5" src="{% static 'site/img/about.jpg' %}" alt="Image">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="section-title bg-white text-start text-primary pe-3">Qui somme nous ?</p>
+                    <h1 class="display-6 mb-4 wow fadeIn" data-wow-delay="0.2s">ONG Busola</h1>
+                    <p class="mb-4 wow fadeIn text-justify" data-wow-delay="0.3s">L'ONG Busola est une Organisation de
+                        la Société Civile béninoise, fondé sur la conviction que le développement durable repose sur la
+                        justice sociale, l'égalité de genre et la paix. Ancrée à Parakou, notre organisation s'investit
+                        pour renforcer le pouvoir d'agir des communautés, avec une attention particulière portée aux
+                        femmes et aux jeunes. À travers une approche intégrée et des partenariats solides, nous mettons
+                        en œuvre des projets qui favorisent l'autonomie, la santé, la citoyenneté active et la cohésion
+                        sociale.</p>
+                    <div class="row g-4 pt-2">
+                        <div class="col-sm-12 wow fadeIn" data-wow-delay="0.4s">
+                            <div class="h-100">
+                                <h3>Gouvernance</h3>
+                                <p> L'ONG Busola est une organisation structurée, dotée de documents de gestion clairs
+                                    (Statuts, Règlement Intérieur, Manuel de procédure administrative et financier,
+                                    etc.)et d'une gouvernance solide assurée par :</p>
+                                <p class="text-dark"><i class="fa fa-check text-primary me-2"></i>Une Assemblée
+                                    Générale, organe suprême de décision</p>
+                                <p class="text-dark"><i class="fa fa-check text-primary me-2"></i> Un Conseil
+                                    d'Administration dynamique, composé de leaders et d'experts de haut niveau dans les
+                                    domaines du droit et de la santé, de la gestion de projet et des finances
+                                    garantissant une vision stratégique et une gestion rigoureuse.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Dommaines  Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="container-fluid text-center py-4">
+                <p class="section-title bg-white text-start text-primary pe-3">Que pronons-nous ?</p>
+                <h1 class="display-6 mb-4 wow fadeIn" data-wow-delay="0.2s">Nos axes stratégiques d'intervention</h1>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-12 col-lg-4 col-xl-3 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="service-title">
+                        <h1 class="display-6 mb-4">Sur quoi agissons-nous?</h1>
+                        <p class="fs-5 mb-0">Nous oeuvrons pour garantir la dignité, renforcer le pouvoir d’agir et
+                            ouvrir des opportunités aux femmes, aux jeunes et aux communautés.</p>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-8 col-xl-9">
+                    <div class="row g-5">
+                        <div class="col-sm-6 col-md-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="service-item h-100">
+                                <div class="btn-square bg-light mb-4">
+                                    <i class="fa fa-droplet fa-2x text-secondary"></i>
+                                </div>
+                                <h3 class="pt-4">Santé et Droits Sexuels et Reproductifs (SDSR) </h3>
+                                <p class="mb-2 text-align-center">Garantir l'accès des
+                                    adolescent(e)s jeunes et des femmes à une information complète et à des services de
+                                    santé de qualité pour leur permettre de faire des choix libres et éclairés.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="service-item h-100">
+                                <div class="btn-square bg-light mb-4">
+                                    <i class="fa fa-hospital fa-2x text-secondary"></i>
+                                </div>
+                                <h3>Prévention et réponse aux Violences Basées sur le Genre (VBG)</h3>
+                                <p class="mb-2"> Mettre en
+                                    œuvre des programmes de prévention et de lutte contre les VBG, faciliter la prise en
+                                    charge des survivantes et mener un plaidoyer pour des politiques de tolérance zéro.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 wow fadeIn" data-wow-delay="0.5s">
+                            <div class="service-item h-100">
+                                <div class="btn-square bg-light mb-4">
+                                    <i class="fa fa-hands-holding-child fa-2x text-secondary"></i>
+                                </div>
+                                <h3 class="pt-1">Leadership, éducation et autonomisation</h3>
+                                <p class="mb-2">Renforcer l'indépendance économique des femmes et des filles et
+                                    promouvoir leur participation active à tous les niveaux de la prise de décision.
+                                    L'accès à l'éducation est ici une conséquence directe de la lutte contre les
+                                    mariages précoces et de l'autonomisation.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="service-item h-100">
+                                <div class="btn-square bg-light mb-4">
+                                    <i class="fa fa-bowl-food fa-2x text-secondary"></i>
+                                </div>
+                                <h3>Paix, cohésion sociale et citoyennetéd</h3>
+                                <p class="mb-2"> Créer des espaces de dialogue intercommunautaire, renforcer le
+                                    vivre-ensemble et promouvoir l'implication des jeunes et des femmes dans la
+                                    consolidation de la paix.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Dommaines End -->
+
+    <!-- Statistics Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="rounded overflow-hidden">
+                        <div class="row g-0">
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="text-center bg-primary py-5 px-4 h-100">
+                                    <i class="fa fa-user fa-3x text-secondary mb-3"></i>
+                                    <h1 class="display-5 mb-0" data-toggle="counter-up">500</h1>
+                                    <span class="text-dark">Nombre de membres</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+                                <div class="text-center bg-secondary py-5 px-4 h-100">
+                                    <i class="fa fa-users fa-3x text-primary mb-3"></i>
+                                    <h1 class="display-5 text-white mb-0" data-toggle="counter-up">70</h1>
+                                    <span class="text-white">Nombre de personnes touché</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="text-center bg-secondary py-5 px-4 h-100">
+                                    <i class="fa fa-list-check fa-3x text-primary mb-3"></i>
+                                    <h1 class="display-5 text-white mb-0" data-toggle="counter-up">3000</h1>
+                                    <span class="text-white">Projets réalisés</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
+                                <div class="text-center bg-primary py-5 px-4 h-100">
+                                    <i class="fa fa-list fa-3x text-secondary mb-3"></i>
+                                    <h1 class="display-5 mb-0" data-toggle="counter-up">7000</h1>
+                                    <span class="text-dark">Projets en cours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="section-title bg-white text-start text-primary pe-3">Pourquoi nous!</p>
+                    <h1 class="display-6 mb-4 wow fadeIn" data-wow-delay="0.2s">Nos valeurs fondamentales</h1>
+                    <p class="mb-4 wow fadeIn" data-wow-delay="0.3s">Notre action est guidée par un socle de valeurs qui
+                        définit notre identité :</p>
+                    <p class="text-dark wow fadeIn" data-wow-delay="0.4s"><i
+                            class="fa fa-check text-primary me-2"></i>Centralité de la personne humaine : Nous impulsons
+                        le changement sans jamais
+                        l'imposer, convaincus que chaque individu est la finalité et l'acteur principal de son
+                        propre développement.</p>
+                    <p class="text-dark wow fadeIn" data-wow-delay="0.5s"><i
+                            class="fa fa-check text-primary me-2"></i>Équité de Genre : Nous sommes convaincus que
+                        l'égalité entre les genres est une
+                        condition essentielle au développement et à la paix.</p>
+                    <p class="text-dark wow fadeIn" data-wow-delay="0.6s"><i
+                            class="fa fa-check text-primary me-2"></i>Nous travaillons en synergie avec les communautés,
+                        les autorités et d'autres organisations pour réaliser notre vision.</p>
+                    <p class="text-dark wow fadeIn" data-wow-delay="0.6s"><i
+                            class="fa fa-check text-primary me-2"></i>Excellence et Intégrité : Nous visons l'excellence
+                        dans toutes nos actions et nous nous engageons à une gestion rigoureuse et transparente.</p>
+                    <div class="d-flex mt-4 wow fadeIn" data-wow-delay="0.7s">
+                        <a class="btn btn-primary py-3 px-4 me-3" href="#!">Faire un don</a>
+                        <a class="btn btn-secondary py-3 px-4" href="#!">Devenir membre</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Statistics End -->
+
+
+
+   {% endblock %}

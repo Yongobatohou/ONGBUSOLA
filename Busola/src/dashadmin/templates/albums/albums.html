@@ -1,0 +1,159 @@
+
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+
+
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Album</a></li>
+                <li class="breadcrumb-item" aria-current="page">Modifier un album</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0">Liste des albums photos</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12">
+          <div class="card table-card">
+            <div class="card-body">
+              <div class="text-end p-4 pb-sm-2">
+                <a href="#" class="btn btn-primary d-inline-flex align-item-center" data-bs-toggle="modal" data-bs-target="#customer-edit_add-modal" onclick="openCreateModal()">
+                  <i class="ti ti-plus f-18"></i> Nouvel album
+                </a>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover" id="pc-dt-simple">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nom</th>
+                      <th>Description</th>
+                      <th>Date de publication</th>
+                      <th class="text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for album in albums %}
+                    <tr>
+                      <td>{{album.id}}</td>
+                      <td>
+                        <p class="text-muted f-12 mb-0">{{album.nom}}</p>
+                      </td>
+                      <td><p class="text-muted f-12 mb-0">{{album.description}}</p></td>
+                      <td>{{album.date_pub}}</td>
+                      <td class="text-center">
+                        <ul class="list-inline me-auto mb-0">
+                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="View">
+                            <a href="{% url 'details_album' album.id %}" class="avtar avtar-xs btn-link-secondary btn-pc-default">
+                              <i class="ti ti-eye f-18"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item align-bottom">
+                            <a href="{% url 'edit_album' album.id %}" class="avtar avtar-xs btn-link-success btn-pc-default">
+                              <i class="ti ti-edit-circle f-18"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">
+                              <a href="{% url 'albums-delete' album.id %}" class="avtar avtar-xs btn-link-danger btn-pc-default">
+                                <i class="ti ti-trash f-18"></i>
+                              </a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <div class="modal fade" id="customer-edit_add-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <form action="" method="post" enctype="multipart/form-data" id="albumForm" style="overflow-x: scroll;">
+          <div class="modal-header">
+            <h5 class="mb-0" id="modalTitle">Formulaire d'ajout d'un Album</h5>
+            <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+              <i class="ti ti-x f-20"></i>
+            </a>
+          </div>
+          <div class="modal-body">
+  
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Nom</label>
+                    <input type="text" name="nom" class="form-control" placeholder="Nom de l'album">
+                  </div>
+                <div class="form-group">
+                  <label class="form-label">Description</label>
+                  <textarea name="description" class="form-control" rows="3" placeholder="Description du projet."></textarea>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label class="form-label">Image</label>
+                    <input type="file" name="image" class="form-control" placeholder="Image">
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <div class="flex-grow-1 text-end">
+              <button type="button" class="btn btn-link-danger btn-pc-default" data-bs-dismiss="modal">Annuler</button>
+              <button type="submit" id="submitBtn" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+
+  <!-- [Page Specific JS] start -->
+  <script src="{% static 'js/plugins/simple-datatables.js' %}"></script>
+  <script>
+    const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+      sortable: false,
+      perPage: 5
+    });
+  </script>
+
+<script>
+  function openCreateModal() {
+    document.getElementById("modalTitle").innerText = "Enregistrer un nouvel album";
+    document.getElementById("submitBtn").innerText = "Créer";
+
+    document.getElementById("albumForm").action = "{% url 'albums-add' %}";
+    document.getElementById("albumForm").reset();
+  }
+</script>
+  {% endblock %}

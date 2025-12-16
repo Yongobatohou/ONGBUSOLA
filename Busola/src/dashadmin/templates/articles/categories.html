@@ -1,0 +1,140 @@
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Catégories</a></li>
+              <li class="breadcrumb-item" aria-current="page">Listes des catégories d'article</li>
+            </ul>
+          </div>
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="mb-0">Liste des catégories</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <!-- [ sample-page ] start -->
+      <div class="col-sm-12">
+        <div class="card table-card">
+          <div class="card-body">
+            <div class="text-end p-4 pb-sm-2">
+              <a href="#" class="btn btn-primary d-inline-flex align-item-center" data-bs-toggle="modal"
+                data-bs-target="#customer-edit_add-modal" onclick="openCreateModal()">
+                <i class="ti ti-plus f-18"></i> Ajouter une catégorie
+              </a>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover" id="pc-dt-simple">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nom de la catégorie</th>
+                    <th class="col-sm-2">Date d'ajout</th>
+                    <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for categorie in categories %}
+                  <tr>
+                    <td>{{categorie.id}}</td>
+                    <td>{{categorie.nom}}</td>
+                    <td>{{categorie.date_creation}}</td>
+                    <td class="text-center">
+                      <ul class="list-inline me-auto mb-0">
+                        <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Edit">
+                          <a href="{% url 'edit_categorie' categorie.id %}" class="avtar avtar-xs btn-link-success btn-pc-default" >
+                            <i class="ti ti-edit-circle f-18"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">
+                          <a href="{% url 'categories-delete' categorie.id %}" class="avtar avtar-xs btn-link-danger btn-pc-default">
+                            <i class="ti ti-trash f-18"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ sample-page ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
+  </div>
+</div>
+<div class="modal fade" id="customer-edit_add-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <form action="" method="post" enctype="multipart/form-data" id="articleForm" style="overflow-x: scroll;">
+        <div class="modal-header">
+          <h5 class="mb-0" id="modalTitle">Formulaire d'ajout d'une catégorie d'article</h5>
+          <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+            <i class="ti ti-x f-20"></i>
+          </a>
+        </div>
+        <div class="modal-body">
+
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Nom de la catégorie</label>
+                <input type="text" name="nom" class="form-control" placeholder="Nom de la catégorie d'article">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <div class="flex-grow-1 text-end">
+            <button type="button" class="btn btn-link-danger btn-pc-default" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- [ Main Content ] end -->
+
+
+<!-- [Page Specific JS] start -->
+<script src="{% static 'js/plugins/simple-datatables.js' %}"></script>
+<script>
+  const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+    sortable: false,
+    perPage: 5
+  });
+</script>
+<script>
+  function openCreateModal() {
+    document.getElementById("modalTitle").innerText = "Ajouter une catégorie";
+    document.getElementById("submitBtn").innerText = "Créer";
+
+    document.getElementById("articleForm").action = "{% url 'categories-add' %}";
+    document.getElementById("articleForm").reset();
+  }
+</script>
+
+{% endblock %}

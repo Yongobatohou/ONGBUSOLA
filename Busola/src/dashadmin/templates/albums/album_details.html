@@ -1,0 +1,129 @@
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pc-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0)">Album</a></li>
+                            <li class="breadcrumb-item" aria-current="page">{{album.nom}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h2 class="mb-0">Photos de l'album: "{{album.nom}}" </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!-- [ sample-page ] start -->
+            <div class="col-sm-12">
+                <div class="card table-card">
+                    <div class="card-body">
+                        <div class="text-end p-4 pb-sm-2">
+                            <a href="#" class="btn btn-primary d-inline-flex align-item-center" data-bs-toggle="modal"
+                                data-bs-target="#customer-edit_add-modal" onclick="openCreateModal()">
+                                <i class="ti ti-plus f-18"></i> Nouvelle photo
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+
+                            <div class="row g-1">
+                                {% for photo in photos %}
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card product-card">
+                                        <div class="card-img-top">
+                                            <img src="{{photo.image.url}}" alt="image" class="img-thumbnail">
+                                        </div>
+                                        <div>
+                                            <a href="{% url 'photo-delete' photo.id %}"
+                                                class="avtar avtar-xs btn-link-danger btn-pc-default">
+                                                <i class="ti ti-trash f-18"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ sample-page ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <div class="modal fade" id="customer-edit_add-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <form action="" method="post" enctype="multipart/form-data" id="albumForm" style="overflow-x: scroll;">
+                    <div class="modal-header">
+                        <h5 class="mb-0" id="modalTitle">Ajouter une photo</h5>
+                        <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+                            <i class="ti ti-x f-20"></i>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="form-label">Image</label>
+                                        <input type="file" name="image" class="form-control" placeholder="Image">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <div class="flex-grow-1 text-end">
+                            <button type="button" class="btn btn-link-danger btn-pc-default"
+                                data-bs-dismiss="modal">Annuler</button>
+                            <button type="submit" id="submitBtn" class="btn btn-primary"
+                                data-bs-dismiss="modal">Enregistrer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+
+    <!-- [Page Specific JS] start -->
+    <script src="{% static 'js/plugins/simple-datatables.js' %}"></script>
+    <script>
+        const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: false,
+            perPage: 5
+        });
+    </script>
+
+    <script>
+        function openCreateModal() {
+            document.getElementById("modalTitle").innerText = "Enregistrer une photo";
+            document.getElementById("submitBtn").innerText = "Créer";
+
+            document.getElementById("albumForm").action = "{% url 'photo-add' album.id %}";
+            document.getElementById("albumForm").reset();
+        }
+    </script>
+    {% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Ressource</a></li>
+                <li class="breadcrumb-item" aria-current="page">Modifier une ressource</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0">Modifier les informations de la ressource</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-xl-12 w-100">
+          <form action="{% url 'ressources-update' ressource.id %}" method="post" enctype="multipart/form-data" id="ressourceForm" style="overflow-x: scroll;">
+            <div class="modal-header">
+              <h5 class="mb-0" id="modalTitle">Formulaire de modification de ressource</h5>
+              <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+                <i class="ti ti-x f-20"></i>
+              </a>
+            </div>
+            <div class="modal-body">
+    
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label class="form-label">Intitulé</label>
+                      <input type="text" name="intitule" value="{{ressource.intitule}}" class="form-control" placeholder="Intitulé de la ressource">
+                    </div>
+  
+                    <div class="form-check cole-md-6 form-switch d-flex align-items-center justify-content-between p-0 col-md-3">
+                      <label class="form-check-label h5 pe-3 mb-0" for="customSwitchemlnot1">Publier</label>
+                      <input class="form-check-input h4 m-0 position-relative flex-shrink-0" type="checkbox" value="publier" name="publier"
+                        id="switchPublier" checked="{{ressource.publier}}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" rows="3" placeholder="Description du projet."> {{ressource.description}} </textarea>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label class="form-label">Image</label>
+                      <input type="file" name="image" class="form-control" placeholder="Image">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="form-label">Télécharger la ressource</label>
+                      <input type="file" name="url" class="form-control" placeholder="url">
+                    </div>
+                  </div>
+    
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <div class="flex-grow-1 text-end">
+                <button type="submit" id="submitBtn" class="btn btn-primary"">Modifier</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+
+    
+
+{% endblock %}

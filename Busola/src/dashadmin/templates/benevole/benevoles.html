@@ -1,0 +1,221 @@
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Bénévoles</a></li>
+              <li class="breadcrumb-item" aria-current="page">Demandes de bénévolat</li>
+            </ul>
+          </div>
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="mb-0">Liste des demandes de bénévolat</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ breadcrumb ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <!-- [ sample-page ] start -->
+      <div class="col-sm-12">
+        <div class="card table-card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover" id="pc-dt-simple">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nom et prénom(s)</th>
+                    <th>Contact</th>
+                    <th>Adresse</th>
+                    <th>Compétences</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for benevole in benevoles %}
+                  <tr>
+                    <td>{{benevole.id}}</td>
+                    <td>
+                      <div class="row">
+                        <div class="col-auto">
+                          <h6 class="mb-0">{{benevole.nom}} {{benevole.prenom}}</h6>
+                          <p class="text-muted f-12 mb-0">{{benevole.email}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{benevole.contact}}</td>
+                    <td>{{benevole.ville}}, {{benevole.pays}}</td>
+                    <td> {{benevole.competences}} </td>
+                    <td><span class="badge bg-light-success rounded-pill f-12">{{benevole.status}}</span> </td>
+                    <td class="text-center">
+                      <ul class="list-inline me-auto mb-0">
+                        <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="View">
+                          <a href="" class="avtar avtar-xs btn-link-secondary btn-pc-default btn-view-partenaire"
+                            data-bs-toggle="modal" data-bs-target="#customer-modal" data-nom="{{ benevole.nom }}"
+                            data-prenom="{{ benevole.prenom }}" data-email="{{ benevole.email }}"
+                            data-contact="{{ benevole.contact }}" data-ville="{{ benevole.ville }}"
+                            data-pays="{{ benevole.pays }}" data-competences="{{ benevole.competences }}"
+                            data-statut="{{ benevole.statut }}"
+                            data-message="{{ benevole.message }}">
+                            <i class="ti ti-eye f-18"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">
+                          <a href="{% url 'benevoles_delete' benevole.id %}" class="avtar avtar-xs btn-link-danger btn-pc-default">
+                            <i class="ti ti-trash f-18"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ sample-page ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
+  </div>
+</div>
+<div class="modal fade" id="customer-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="mb-0">Détails de la demande de bénévolat</h5>
+        <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+          <i class="ti ti-x f-20"></i>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body position-relative">
+                <div class="position-absolute end-0 top-0 p-3">
+                  <span class="badge bg-primary" id="modal-statut"></span>
+                </div>
+                <div class="text-center mt-3">
+                  <hr class="my-3 border border-secondary-subtle">
+                  <div class="d-inline-flex align-items-center justify-content-between w-100 mb-3">
+                    <i class="ti ti-mail"></i>
+                    <p class="mb-0" id="modal-email"></p>
+                  </div>
+                  <div class="d-inline-flex align-items-center justify-content-between w-100 mb-3">
+                    <i class="ti ti-phone"></i>
+                    <p class="mb-0" id="modal-tel"></p>
+                  </div>
+                  <div class="d-inline-flex align-items-center justify-content-between w-100 mb-3">
+                    <i class="ti ti-map-pin"></i>
+                    <p class="mb-0" id="modal-adresse"></p>
+                  </div>
+                  <div class="d-inline-flex align-items-center justify-content-between w-100">
+                    <i class="ti ti-link"></i>
+                    <a href="#" id="modal-doc" class="link-primary">
+                      <p class="mb-0" id="modal-cv"></p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card">
+              <div class="card-header">
+                <h5>Détails Demande</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item px-0 pt-0">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <p class="mb-1 text-muted">Nom</p>
+                        <h6 class="mb-0" id="modal-nom"></h6>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="mb-1 text-muted">Prenom</p>
+                        <h6 class="mb-0" id="modal-prenom"></h6>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="list-group-item px-0">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <p class="mb-1 text-muted">Compétences</p>
+                        <h6 class="mb-0" id="modal-compet"></h6>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h5>Message</h5>
+              </div>
+              <div class="card-body">
+                <p class="mb-0" id="modal-message"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- [Page Specific JS] start -->
+<script src="{% static 'js/plugins/simple-datatables.js' %}"></script>
+<script>
+  const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+    sortable: false,
+    perPage: 5
+  });
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const buttons = document.querySelectorAll(".btn-view-partenaire");
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", function () {
+
+        document.getElementById("modal-nom").textContent = this.dataset.nom;
+        document.getElementById("modal-prenom").textContent = this.dataset.prenom;
+        document.getElementById("modal-email").textContent = this.dataset.email;
+        document.getElementById("modal-compet").textContent = this.dataset.competences;
+        document.getElementById("modal-statut").textContent = this.dataset.statut;
+        document.getElementById("modal-tel").textContent = this.dataset.contact;
+        document.getElementById("modal-adresse").textContent =
+          this.dataset.ville + ", " + this.dataset.pays;
+
+        document.getElementById("modal-message").textContent =
+          this.dataset.message || "Aucun message fourni";
+
+      });
+    });
+
+  });
+</script>
+
+
+{% endblock %}

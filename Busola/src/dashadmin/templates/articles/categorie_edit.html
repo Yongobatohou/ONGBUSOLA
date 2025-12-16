@@ -1,0 +1,64 @@
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../dashboard/index.html">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Catégorie d'article</a></li>
+                <li class="breadcrumb-item" aria-current="page">Modifier une catégorie</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0">Modifier la catégorie</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12 w-100">
+            <form action="{% url 'categories-update' categorie.id %}" method="post" enctype="multipart/form-data" id="articleForm" style="overflow-x: scroll;">
+                <div class="modal-header">
+                  <h5 class="mb-0" id="modalTitle">Formulaire de modification d'une catégorie d'article</h5>
+                </div>
+                <div class="modal-body">
+        
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label class="form-label">Nom de la catégorie</label>
+                        <input type="text" name="nom" value="{{categorie.nom}}" class="form-control" placeholder="Nom de la catégorie d'article">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <div class="flex-grow-1 text-end">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                  </div>
+                </div>
+              </form>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+
+    
+
+{% endblock %}

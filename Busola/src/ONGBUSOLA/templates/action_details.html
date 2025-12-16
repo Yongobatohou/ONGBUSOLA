@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4">
+            <h1 class="display-3 animated slideInDown">{{ action.nom }}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'actions' %}">Actions</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ action.nom }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Action Details Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="display-6 mb-4">{{ action.nom }}</h1>
+                    <p class="text-black mb-0">{{ action.details }}</p>
+                </div>
+                <div class="col-lg-4">
+                    <img class="img-fluid w-100 mb-4" src="{{ action.image.url }}" alt="">
+                    <div class="bg-secondary text-left p-4">
+                        <h3 class="text-white mb-3">Détails du projet</h3>
+                        <p class="text-white mb-0"><span class="fw-bold">Secteur: </span> {{ action.secteur }}</p>
+                        <p class="text-white mb-0"><span class="fw-bold">Partenaires:</span> {{ action.partenaires }}</p>
+                        <p class="text-white mb-0"><span class="fw-bold">Taux de réalisation:</span> {{ action.taux|floatformat:0 }}%</p>
+                        <p class="text-white mb-0"><span class="fw-bold">Financement:</span> {{ action.montant_financement|floatformat:0 }} Fcfa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Action Details End -->
+
+
+
+
+
+{% endblock %}

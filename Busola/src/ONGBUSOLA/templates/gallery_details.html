@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'site/css/gallery.css' %}">
+{% block content %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4">
+            <h1 class="display-3 animated slideInDown">{{album.nom}}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{% url 'gallery' %}">Galerie</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{album.nom}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+
+    <div class="gallery-container">
+        <div class="photo-grid" id="photoGrid"></div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="close-btn" onclick="closeLightbox()">×</button>
+            <button class="nav-btn prev" onclick="navigatePhoto(-1)">‹</button>
+            <button class="nav-btn next" onclick="navigatePhoto(1)">›</button>
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+        </div>
+    </div>
+
+
+
+    <script>
+        const photos = [
+            {% for photo in photos %}
+                {
+                    id: {{ photo.id }},
+                    src: "{{ photo.image.url }}"
+                }{% if not forloop.last %},{% endif %}
+
+            {% endfor %}
+        ];
+
+        let currentFilter = 'all';
+        let currentPhotoIndex = 0;
+
+        function renderPhotos(filter = 'all') {
+            const grid = document.getElementById('photoGrid');
+            const filteredPhotos = filter === 'all'
+                ? photos
+                : photos.filter(photo => photo.category === filter);
+
+            grid.innerHTML = filteredPhotos.map((photo, index) => `
+                <div class="photo-card" onclick="openLightbox(${photos.indexOf(photo)})">
+                    <div class="photo-wrapper">
+                        <img src="${photo.src}" alt="${photo.title}">
+                    </div>
+                </div>
+            `).join('');
+        }
+        function openLightbox(index) {
+            currentPhotoIndex = index;
+            const photo = photos[index];
+            document.getElementById('lightboxImg').src = photo.src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigatePhoto(direction) {
+            currentPhotoIndex += direction;
+            if (currentPhotoIndex < 0) currentPhotoIndex = photos.length - 1;
+            if (currentPhotoIndex >= photos.length) currentPhotoIndex = 0;
+            openLightbox(currentPhotoIndex);
+        }
+
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigatePhoto(-1);
+            if (e.key === 'ArrowRight') navigatePhoto(1);
+        });
+
+        // Close lightbox when clicking outside
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // Initial render
+        renderPhotos();
+    </script>
+    <!-- JavaScript Libraries -->
+    <script src="{% static 'site/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'site/js/bootstrap.js' %}"></script>
+
+    {% endblock %}

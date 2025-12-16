@@ -1,0 +1,96 @@
+{% extends 'dash.html' %}
+{% load static %}
+{% block content %}
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../dashboard/index.html">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Articles</a></li>
+                <li class="breadcrumb-item" aria-current="page">Modifier un article</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0">Modifier l'article</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-sm-12 w-100">
+              <form action="{% url 'articles-update' article.id %}" method="post" enctype="multipart/form-data" id="articleForm" style="overflow-x: scroll;">
+                <div class="modal-header mb-5">
+                  <h5 class="mb-0" id="modalTitle">Formulaire de modification d'article</h5>
+                </div>
+                <div class="modal-body">
+        
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-sm-3 text-center">
+                      <div class="chat-avtar d-inline-flex mx-auto">
+                        <img class="img-fluid mt-5" src="{{article.image.url}}" alt="User image">
+                      </div>
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="form-group">
+                        <label class="form-label">Titre</label>
+                        <input type="text" name="titre" value="{{article.titre}}" class="form-control" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Extrait</label>
+                        <input type="text" name="extrait" value="{{article.extrait}}" class="form-control" placeholder="Extrait">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Contenu</label>
+                        <textarea name="contenu" class="form-control" rows="3" placeholder="Contenu">{{article.contenu}}</textarea>
+                      </div>
+                      <div class="form-check form-switch d-flex align-items-center justify-content-between p-0">
+                        <label class="form-check-label h5 pe-3 mb-0" for="customSwitchemlnot1">Publier</label>
+                        <input class="form-check-input h4 m-0 position-relative flex-shrink-0" type="checkbox" checked="{{article.publier}}" name="publier"
+                          id="switchPublier">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Image</label>
+                        <input type="file" name="image" class="form-control" placeholder="Image">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Catégorie</label>
+                        <select name="categorie" class="form-select">
+                          <option value="{{article.categorie_id}}" disabled>Sélectionner une catégorie</option>
+                          {% for cat in categories %}
+                          <option value="{{ cat.id }}">{{ cat.nom }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+        
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <div class="flex-grow-1 text-end">
+                    <button type="submit" id="submitBtn" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+                  </div>
+                </div>
+              </form>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+
+    
+
+{% endblock %}
